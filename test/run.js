@@ -8,6 +8,7 @@
 const kamerbotchi = require('../index.js')
 
 async function init() {
+  kamerbotchi.setToken('my-test-token-here')
   kamerbotchi.init()
 }
 
