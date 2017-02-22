@@ -40,7 +40,15 @@ kamerbotchi.request = async (uri, method = 'GET', body = false) => {
   try {
     response = await request(options)
   } catch (error) {
-    console.log('[!] apiRequest caught error', error)
+    console.log('[!] apiRequest caught error')
+
+    if (error.statusCode === 401) {
+      console.log('[!] Given player token is not valid.')
+    } else {
+      console.log(error)
+    }
+
+    process.exit()
   }
 
   CURRENT_GAME = response.game
@@ -134,7 +142,18 @@ kamerbotchi.run = async (token = PLAYER_TOKEN, game = CURRENT_GAME) => {
   }
 }
 
-kamerbotchi.init = async (token = PLAYER_TOKEN) => {
+/**
+ * Main bot loop.
+ * @param  {String}  [token=PLAYER_TOKEN]
+ * @return {Promise}
+ */
+kamerbotchi.init = async () => {
+
+  if (!PLAYER_TOKEN) {
+    console.log('[!] No player token was set, please provide one before continuing.')
+    return false
+  }
+
   let sleepSeconds = await kamerbotchi.run(PLAYER_TOKEN, CURRENT_GAME)
 
   if (sleepSeconds > 0) {
