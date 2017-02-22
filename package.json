@@ -1,5 +1,5 @@
 {
-  "name": "kamergotchi-bot",
+  "name": "kamergotchi",
   "version": "1.0.0",
   "description": "Automatically take care of your favorite dutch politician!",
   "license": "MIT",
@@ -9,6 +9,14 @@
     "request-promise": "^4.1.1"
   },
   "devDependencies": {},
+  "keywords": [
+    "kamergotchi",
+    "tamagotchi",
+    "bot",
+    "nodejs",
+    "dutch",
+    "politics"
+  ],
   "scripts": {
     "test": "node --harmony-async-await test/index.js",
     "build": ""
