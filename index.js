@@ -8,8 +8,8 @@
 const request = require('request-promise')
 
 const API_ENDPOINT = 'https://api.kamergotchi.nl'
-let   PLAYER_TOKEN = ''
-let   CURRENT_GAME = false
+let PLAYER_TOKEN = ''
+let CURRENT_GAME = false
 
 let kamerbotchi = {}
 
@@ -29,7 +29,6 @@ kamerbotchi.setToken = (token) => {
  * @return {Promise<Object>}
  */
 kamerbotchi.request = async (uri, method = 'GET', body = false) => {
-
   let response = false
 
   // Set the request opions we can fill in right away.
@@ -43,14 +42,11 @@ kamerbotchi.request = async (uri, method = 'GET', body = false) => {
   // If there's a body given, set it in our options.
   if (body) options.body = body
 
-  // Await the response from the api.
   try {
+    // Await the response from the api.
     response = await request(options)
-  }
-
-  // Catch any HTTP response errors.
-  catch (error) {
-
+  } catch (error) {
+    // Catch any HTTP response errors.
     if (error.statusCode === 401) {
       console.log('[!] Given player token is not valid.')
     } else if (error.statusCode === 429) {
@@ -88,7 +84,6 @@ kamerbotchi.status = async (token = PLAYER_TOKEN) => {
  * @return {Promise<Object>}
  */
 kamerbotchi.determineRequiredCare = async (game) => {
-
   // If our food level is lower than our attention level,
   // and our knowledge is lower than our food level, we go for knowledge.
   //
@@ -143,7 +138,6 @@ kamerbotchi.claim = async () => {
  * @return {Promise<Integer>}
  */
 kamerbotchi.run = async (token = PLAYER_TOKEN, game = CURRENT_GAME) => {
-
   // Get game status if none has been requested yet.
   if (typeof game !== 'object') {
     game = await kamerbotchi.status()
@@ -165,19 +159,15 @@ kamerbotchi.run = async (token = PLAYER_TOKEN, game = CURRENT_GAME) => {
   // Any 'care' points available to spend?
   // For some reason, careLeft stays 0, even after careReset has passed.
   if (game.careLeft > 0 || date.current > date.careReset) {
-
     // Let our algorithm determine what to spend a care point on.
     await kamerbotchi.determineRequiredCare(game)
     return 0
-
   } else {
-
     // Well, all we can do here is wait..
     // Calculate the time in seconds before we try again.
     date.remaining = date.careReset - date.current
     console.log('[*] Can\'t feed ' + game.gotchi.displayName + ' anymore. Waiting ' + date.remaining + ' seconds.')
     return date.remaining
-
   }
 }
 
@@ -187,7 +177,6 @@ kamerbotchi.run = async (token = PLAYER_TOKEN, game = CURRENT_GAME) => {
  * @return {Promise}
  */
 kamerbotchi.init = async () => {
-
   // Make sure a token was passed on somehow.
   if (!PLAYER_TOKEN) {
     console.log('[!] No player token was set, please provide one before continuing.')
