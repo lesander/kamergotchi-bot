@@ -99,6 +99,10 @@ kamerbotchi.spendCareOn = async (careType) => {
   return updatedGame
 }
 
+/**
+ * Claim the bonus.
+ * @return {Promise}
+ */
 kamerbotchi.claim = async () => {
   const updatedGame = await kamerbotchi.request('/game/claim', 'POST')
   console.log('[*] Claimed points bonus. New score is ' + updatedGame.game.score)
@@ -106,11 +110,12 @@ kamerbotchi.claim = async () => {
 }
 
 /**
- *
+ * Check what we can and cannot do with the current game.
  * @param  {String}  [token=PLAYER_TOKEN]
  * @return {Promise}
  */
 kamerbotchi.run = async (token = PLAYER_TOKEN, game = CURRENT_GAME) => {
+
   // Get game status if none has been requested yet.
   if (typeof game !== 'object') {
     game = await kamerbotchi.status()
