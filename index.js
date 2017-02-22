@@ -7,11 +7,19 @@
 
 const request = require('request-promise')
 
-const PLAYER_TOKEN = ''
 const API_ENDPOINT = 'https://api.kamergotchi.nl'
+let PLAYER_TOKEN = ''
 let CURRENT_GAME = false
 
 let kamerbotchi = {}
+
+/**
+ * Set the player token
+ * @param {String} token
+ */
+kamerbotchi.setToken = (token) => {
+  PLAYER_TOKEN = token
+}
 
 /**
  * Send a request to the Kamergotchi API.
