@@ -1,4 +1,6 @@
 # KamerBOTchi
+[![kamergotchi](https://img.shields.io/npm/v/kamergotchi.svg)]()
+[![kamergotchi](https://img.shields.io/npm/dt/kamergotchi.svg)]()
 
 *Automatically take care of your favorite dutch politician.*
 
