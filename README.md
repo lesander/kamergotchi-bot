@@ -6,6 +6,27 @@
 
 A Node.js [Kamergotchi](https://kamergotchi.nl) bot.
 
+```
+KamerBOTchi v1.3.0
+Developed with <3 by Sander Laarhoven
+https://git.io/kamergotchi
+
+Player token is set to xxx
+[*] Requesting game status.
+[*] Spending a care point on attention. New score is 5002
+[*] Spending a care point on food. New score is 5007
+[*] Spending a care point on knowledge. New score is 5012
+[*] Spending a care point on attention. New score is 5017
+[*] Spending a care point on food. New score is 5022
+[*] Spending a care point on knowledge. New score is 5027
+[*] Spending a care point on attention. New score is 5032
+[*] Spending a care point on food. New score is 5037
+[*] Spending a care point on knowledge. New score is 5042
+[*] Spending a care point on knowledge. New score is 5047
+[*] 397 seconds remaining. Can't feed Pechtold yet.
+
+```
+
 ## Getting started
 
 This module is both a CLI program and a Node module.
