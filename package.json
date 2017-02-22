@@ -4,6 +4,10 @@
   "description": "Automatically take care of your favorite dutch politician!",
   "license": "MIT",
   "repository": "https://github.com/lesander/kamergotchi-bot",
+  "bin": {
+    "kamerbotchi": "bin/global.js",
+    "kamergotchi": "bin/global.js"
+  },
   "dependencies": {
     "request": "^2.79.0",
     "request-promise": "^4.1.1"

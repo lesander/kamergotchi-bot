@@ -176,15 +176,3 @@ kamerbotchi.init = async () => {
  * Export the module.
  */
 module.exports = kamerbotchi
-
-/**
- * Was the script called from CLI?
- */
-if (require.main === module) {
-  console.log('KamerBOTchi v'+require('./package.json').version)
-  console.log('Developed with <3 by Sander Laarhoven')
-  console.log('https://git.io/kamergotchi')
-  console.log('\nPlayer token is set to ' + process.argv[2])
-  kamerbotchi.setToken(process.argv[2])
-  kamerbotchi.init()
-}
