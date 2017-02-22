@@ -40,3 +40,12 @@ kamergotchi {myPlayerToken}
 To get started, you will have to find out your kamergotchi player token through a simple MITM attack using a proxy on your phone. I recommend [Burp Suite](https://support.portswigger.net/customer/portal/articles/1841108-configuring-an-ios-device-to-work-with-burp).
 
 When you've obtained a player token, replace `{myPlayerToken}` with your token.
+
+## Contributing
+If you'd like to contribute to this project, or file a bug or feature request, please head over to [the issue tracker](https://github.com/lesander/kamergotchi-bot/issues) or [open a pull request](https://github.com/lesander/kamergotchi-bot/pulls).
+
+## License
+Copyright (c) 2017 Sander Laarhoven All Rights Reserved.
+This software is open-sourced under the MIT License ([see the LICENSE file for the full license](https://github.com/lesander/kamergotchi-bot/blob/master/LICENSE)). So within some limits, you can do with the code whatever you want. However, if you like and/or want to re-use it, I'd really appreciate a reference to this project page.
+
+The software is provided as is. It might work as expected - or not. Just don't blame me.
