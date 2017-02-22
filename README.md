@@ -1,30 +1,30 @@
 # KamerBOTchi
-[![kamergotchi](https://img.shields.io/npm/v/kamergotchi.svg)]()
-[![kamergotchi](https://img.shields.io/npm/dt/kamergotchi.svg)]()
+[![kamergotchi](https://img.shields.io/npm/v/kamergotchi.svg?mmaxAge=-1)](https://www.npmjs.com/package/kamergotchi)
+[![kamergotchi](https://img.shields.io/npm/dt/kamergotchi.svg?maxAge=-1)](https://www.npmjs.com/package/kamergotchi)
 
 *Automatically take care of your favorite dutch politician.*
 
 A Node.js [Kamergotchi](https://kamergotchi.nl) bot.
 
 ```
-KamerBOTchi v1.3.0
+KamerBOTchi v1.3.2
 Developed with <3 by Sander Laarhoven
 https://git.io/kamergotchi
 
 Player token is set to xxx
 [*] Requesting game status.
-[*] Spending a care point on attention. New score is 5002
-[*] Spending a care point on food. New score is 5007
-[*] Spending a care point on knowledge. New score is 5012
-[*] Spending a care point on attention. New score is 5017
-[*] Spending a care point on food. New score is 5022
-[*] Spending a care point on knowledge. New score is 5027
-[*] Spending a care point on attention. New score is 5032
-[*] Spending a care point on food. New score is 5037
-[*] Spending a care point on knowledge. New score is 5042
-[*] Spending a care point on knowledge. New score is 5047
-[*] 397 seconds remaining. Can't feed Pechtold yet.
-
+[*] Can't feed Sylvana anymore. Waiting 158 seconds.
+[*] Spending a care point on knowledge. New score is 5802
+[*] Spending a care point on food. New score is 5807
+[*] Spending a care point on knowledge. New score is 5812
+[*] Spending a care point on food. New score is 5817
+[*] Spending a care point on attention. New score is 5822
+[*] Spending a care point on attention. New score is 5827
+[*] Spending a care point on knowledge. New score is 5832
+[*] Spending a care point on knowledge. New score is 5837
+[*] Spending a care point on food. New score is 5842
+[*] Spending a care point on attention. New score is 5847
+[*] Can't feed Sylvana anymore. Waiting 400 seconds.
 ```
 
 ## Getting started
