@@ -44,6 +44,8 @@ kamerbotchi.request = async (uri, method = 'GET', body = false) => {
 
     if (error.statusCode === 401) {
       console.log('[!] Given player token is not valid.')
+    } else if (error.statusCode === 429) {
+      console.log('[!] Too many requests :(')
     } else {
       console.log(error)
     }
