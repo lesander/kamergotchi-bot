@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A Node.js [Kamergotchi](https://kamergotchi.nl) bot.
+  A Node.js <a href="https://kamergotchi.nl">Kamergotchi</a> bot.
 </p>
 
 <hr>
