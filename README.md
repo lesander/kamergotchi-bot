@@ -10,8 +10,8 @@
 
 <hr>
 <p align="center">
-[![kamergotchi](https://img.shields.io/npm/v/kamergotchi.svg?mmaxAge=-1)](https://www.npmjs.com/package/kamergotchi)
-[![kamergotchi](https://img.shields.io/npm/dt/kamergotchi.svg?maxAge=-1)](https://www.npmjs.com/package/kamergotchi)
+<img src="https://img.shields.io/npm/v/kamergotchi.svg?mmaxAge=-1)">
+<img src="https://img.shields.io/npm/dt/kamergotchi.svg?maxAge=-1)">
 </p>
 <hr>
 
