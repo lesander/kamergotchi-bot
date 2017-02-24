@@ -132,7 +132,7 @@ kamerbotchi.determineRequiredCare = async (game) => {
 kamerbotchi.spendCareOn = async (careType) => {
   const updatedGame = await kamerbotchi.request('/game/care', 'POST', { bar: careType })
 
-  console.log(String(updatedGame.game.score).bold + ' Spent care point on ' + careType.bold)
+  console.log('    Score ' + String(updatedGame.game.score).bold + ' Spent care point on ' + careType.bold)
   return updatedGame
 }
 
