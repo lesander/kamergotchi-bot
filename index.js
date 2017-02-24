@@ -10,6 +10,7 @@ const request = require('request-promise')
 const API_ENDPOINT = 'https://api.kamergotchi.nl'
 let PLAYER_TOKEN = ''
 let CURRENT_GAME = false
+let LAST_RESPONSE = false
 
 let kamerbotchi = {}
 
@@ -49,19 +50,28 @@ kamerbotchi.request = async (uri, method = 'GET', body = false) => {
     // Catch any HTTP response errors.
     if (error.statusCode === 401) {
       console.log('[!] Given player token is not valid.')
+      process.exit()
     } else if (error.statusCode === 429) {
       console.log('[!] Too many requests :(')
-    } else {
-      console.log('[!] apiRequest caught error')
-      console.log(error)
-    }
 
-    process.exit()
+      // The request failed, so we return the last known good response.
+      // this will make the bot do the previous action again.
+      // 
+      // I know, this is a lazy version of 'exponential backoff', without
+      // the back-off implemented ¯\_(ツ)_/¯
+      return LAST_RESPONSE
+
+    } else {
+      console.log('[!] apiRequest caught an unrecoverable error.')
+      console.log(error)
+      process.exit()
+    }
   }
 
   // Update the current game global object.
   // This saves us a few status requests to the api.
   CURRENT_GAME = response.game
+  LAST_RESPONSE = response
 
   return response
 }
