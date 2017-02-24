@@ -54,7 +54,8 @@ To get started with the bot, you will have to find out your kamergotchi `x-playe
 
 When you've obtained a player token, replace `{myPlayerToken}` with your token and run the program. You can check the progress of the bot on your phone in the Kamergotchi app.
 
-To update kamergotchi-bot to a newer version, run the following command.
+## Updating
+To update your `kamergotchi-bot` to a newer version, run the following command.
 ```shell
 npm update -g kamergotchi
 ```
