@@ -141,7 +141,7 @@ kamerbotchi.spendCareOn = async (careType) => {
  */
 kamerbotchi.claim = async () => {
   const updatedGame = await kamerbotchi.request('/game/claim', 'POST')
-  console.log('[*] Claimed bonus points.' + ' New score is '.bold + String(updatedGame.game.score).bold)
+  console.log('    Score ' + String(updatedGame.game.score).bold + ' Clamed bonus points.'.yellow)
   return updatedGame
 }
 
