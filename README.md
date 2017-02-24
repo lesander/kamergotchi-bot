@@ -1,6 +1,10 @@
 <h1 align="center">KamerBOTchi</h1>
 
 <p align="center">
+  <img src="bin/kamerbotchi.png">
+</p>
+
+<p align="center">
   Automatically take care of your favorite dutch politician.
 </p>
 
