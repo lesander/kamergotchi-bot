@@ -6,6 +6,7 @@
  */
 
 const request = require('request-promise')
+const colors = require('colors')
 
 const API_ENDPOINT = 'https://api.kamergotchi.nl'
 let PLAYER_TOKEN = ''
@@ -49,20 +50,22 @@ kamerbotchi.request = async (uri, method = 'GET', body = false) => {
   } catch (error) {
     // Catch any HTTP response errors.
     if (error.statusCode === 401) {
-      console.log('[!] Given player token is not valid.')
+      console.log('[!] [API] 401 Given player token is not valid.'.red)
       process.exit()
     } else if (error.statusCode === 429) {
-      console.log('[!] Too many requests :(')
+      console.log('[!] [API] 429 Request denied, too many requests.')
 
       // The request failed, so we return the last known good response.
       // this will make the bot do the previous action again.
-      // 
+      //
       // I know, this is a lazy version of 'exponential backoff', without
       // the back-off implemented ¯\_(ツ)_/¯
       return LAST_RESPONSE
-
+    } else if (error.statusCode === 504) {
+      console.log('[!] [API] 504 Gateway timeout.'.red)
+      return LAST_RESPONSE
     } else {
-      console.log('[!] apiRequest caught an unrecoverable error.')
+      console.log('[!] [API] '.red + String(error.statusCode).red + ' caught an unrecoverable error.'.red)
       console.log(error)
       process.exit()
     }
@@ -83,7 +86,7 @@ kamerbotchi.request = async (uri, method = 'GET', body = false) => {
  */
 kamerbotchi.status = async (token = PLAYER_TOKEN) => {
   const status = await kamerbotchi.request('/game')
-  console.log('[*] Requesting game status.')
+  console.log('    requested game status.'.grey)
 
   return status.game
 }
@@ -128,7 +131,8 @@ kamerbotchi.determineRequiredCare = async (game) => {
  */
 kamerbotchi.spendCareOn = async (careType) => {
   const updatedGame = await kamerbotchi.request('/game/care', 'POST', { bar: careType })
-  console.log('[*] Spending a care point on ' + careType + '. New score is ' + updatedGame.game.score)
+
+  console.log(String(updatedGame.game.score).bold + ' Spent care point on ' + careType.bold)
   return updatedGame
 }
 
@@ -138,7 +142,7 @@ kamerbotchi.spendCareOn = async (careType) => {
  */
 kamerbotchi.claim = async () => {
   const updatedGame = await kamerbotchi.request('/game/claim', 'POST')
-  console.log('[*] Claimed bonus points. New score is ' + updatedGame.game.score)
+  console.log('[*] Claimed bonus points.' + ' New score is '.bold + String(updatedGame.game.score).bold)
   return updatedGame
 }
 
@@ -162,7 +166,9 @@ kamerbotchi.run = async (token = PLAYER_TOKEN, game = CURRENT_GAME) => {
   }
 
   // Is a claim available?
-  if (date.current > date.claimReset) {
+  // We want the highest available claim,
+  // so we wait until there's no care points left to spend.
+  if (date.current > date.claimReset && game.careLeft === 0) {
     kamerbotchi.claim(token, game)
   }
 
@@ -176,7 +182,7 @@ kamerbotchi.run = async (token = PLAYER_TOKEN, game = CURRENT_GAME) => {
     // Well, all we can do here is wait..
     // Calculate the time in seconds before we try again.
     date.remaining = date.careReset - date.current
-    console.log('[*] Can\'t feed ' + game.gotchi.displayName + ' anymore. Waiting ' + date.remaining + ' seconds.')
+    console.log('[*] Can\'t feed ' + game.gotchi.displayName + ' (' + game.gotchi.party + ') anymore, ' + date.remaining + ' seconds remaining.')
     return date.remaining
   }
 }
@@ -189,7 +195,7 @@ kamerbotchi.run = async (token = PLAYER_TOKEN, game = CURRENT_GAME) => {
 kamerbotchi.init = async () => {
   // Make sure a token was passed on somehow.
   if (!PLAYER_TOKEN) {
-    console.log('[!] No player token was set, please provide one before continuing.')
+    console.log('[!] No player token was set, please provide one before continuing.'.red)
     return false
   }
 
@@ -197,12 +203,13 @@ kamerbotchi.init = async () => {
   let sleepSeconds = await kamerbotchi.run(PLAYER_TOKEN, CURRENT_GAME)
 
   // To make the bot stand out less, we add a few extra random
-  // waiting seconds to each request. Of course, if there's more
-  // requests to send we add less random seconds to the sleep time.
+  // waiting seconds before making a new request.
+  // Of course, if there's more requests to send we do not add extra sleep seconds.
   if (sleepSeconds > 0) {
-    sleepSeconds += Math.floor(Math.random() * 60) + 2
+    sleepSeconds += Math.floor(Math.random() * 20) + 2
+    console.log('    hibernating for '.grey + String(sleepSeconds).grey + ' seconds..'.grey)
   } else {
-    sleepSeconds += Math.floor(Math.random() * 3) + 1
+    sleepSeconds += 1
   }
 
   // setTimeout takes milliseconds as a parameter, so we better convert

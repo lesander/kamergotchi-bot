@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "request": "^2.79.0",
-    "request-promise": "^4.1.1"
+    "request-promise": "^4.1.1",
+    "colors": "^1.1.2",
+    "latest-version": "^3.0.0"
   },
   "devDependencies": {},
   "keywords": [
@@ -22,7 +24,7 @@
     "politics"
   ],
   "scripts": {
-    "test": "node --harmony-async-await test/index.js",
+    "test": "chmod +x bin/global.js; bin/global.js {token}",
     "build": ""
   }
 }
