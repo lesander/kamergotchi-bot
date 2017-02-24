@@ -20,24 +20,26 @@
 <hr>
 
 ```
-KamerBOTchi v1.3.2
+KamerBOTchi v1.4.0
 Developed with <3 by Sander Laarhoven
 https://git.io/kamergotchi
 
-Player token is set to xxx
-[*] Requesting game status.
-[*] Can't feed Sylvana anymore. Waiting 158 seconds.
-[*] Spending a care point on knowledge. New score is 5802
-[*] Spending a care point on food. New score is 5807
-[*] Spending a care point on knowledge. New score is 5812
-[*] Spending a care point on food. New score is 5817
-[*] Spending a care point on attention. New score is 5822
-[*] Spending a care point on attention. New score is 5827
-[*] Spending a care point on knowledge. New score is 5832
-[*] Spending a care point on knowledge. New score is 5837
-[*] Spending a care point on food. New score is 5842
-[*] Spending a care point on attention. New score is 5847
-[*] Can't feed Sylvana anymore. Waiting 400 seconds.
+[*] Player token is set to xxx
+    requested game status.
+[*] Can't feed Sylvana (Artikel 1) anymore, 115 seconds remaining.
+    hibernating for 121 seconds..
+    Score 19471 Spent care point on knowledge
+    Score 19476 Spent care point on knowledge
+    Score 19481 Spent care point on knowledge
+    Score 19486 Spent care point on knowledge
+    Score 19491 Spent care point on knowledge
+    Score 19496 Spent care point on knowledge
+    Score 19501 Spent care point on knowledge
+    Score 19506 Spent care point on knowledge
+    Score 19511 Spent care point on knowledge
+    Score 19516 Spent care point on knowledge
+[*] Can't feed Sylvana (Artikel 1) anymore, 409 seconds remaining.
+    hibernating for 426 seconds..
 ```
 
 ## Getting started
