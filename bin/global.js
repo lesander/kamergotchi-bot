@@ -7,6 +7,9 @@ const latestVersion = require('latest-version')
 
 const init = async () => {
 
+  // Enable logging output.
+  kamerbotchi.logging = true
+
   // Get current and latest versions.
   const cv = require('../package.json').version
   const lv = await latestVersion('kamergotchi')
