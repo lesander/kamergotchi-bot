@@ -34,11 +34,13 @@ kamerbotchi.setToken = (token) => {
 /**
  * Send a request to the Kamergotchi API.
  *
+ * @param  {String} uri
  * @param  {String} method
  * @param  {Object} body
+ * @param  {String} token
  * @return {Promise<Object>}
  */
-kamerbotchi.request = async (uri, method = 'GET', body = false) => {
+kamerbotchi.request = async (uri, method = 'GET', body = false, token = PLAYER_TOKEN) => {
   let response = false
 
   // Set the request opions we can fill in right away.
@@ -46,7 +48,7 @@ kamerbotchi.request = async (uri, method = 'GET', body = false) => {
     uri: API_ENDPOINT + uri,
     json: true,
     method: method,
-    headers: { 'x-player-token': PLAYER_TOKEN }
+    headers: { 'x-player-token': token }
   }
 
   // If there's a body given, set it in our options.
@@ -101,7 +103,7 @@ kamerbotchi.request = async (uri, method = 'GET', body = false) => {
  * @return {Promise<Object>}
  */
 kamerbotchi.status = async (token = PLAYER_TOKEN) => {
-  const status = await kamerbotchi.request('/game')
+  const status = await kamerbotchi.request('/game', null, null, token)
   if (kamerbotchi.logging) console.log('    requested game status.'.grey)
 
   if (status.error) return status

@@ -56,6 +56,21 @@ To get started with the bot, you will have to find out your kamergotchi `x-playe
 
 When you've obtained a player token, replace `{myPlayerToken}` with your token and run the program. You can check the progress of the bot on your phone in the Kamergotchi app.
 
+## Module
+As stated, this package can also be used as a module in your NodeJS script. This module exposes several functions to utilize the Kamergotchi API yourself.
+
+```nodejs
+const bot = require('kamergotchi')
+
+let status = await bot.status(token)
+
+if (status.error) {
+  console.log(status.error.message)
+} else {
+  console.log('current score is ' + status.score)
+}
+```
+
 ## Updating
 To update your `kamergotchi-bot` to a newer version, run the following command.
 ```shell
