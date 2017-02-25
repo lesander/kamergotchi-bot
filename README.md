@@ -16,6 +16,7 @@
 <p align="center">
 <img src="https://img.shields.io/npm/v/kamergotchi.svg?mmaxAge=-1">
 <img src="https://img.shields.io/npm/dt/kamergotchi.svg?maxAge=-1">
+<img src="https://travis-ci.org/lesander/kamergotchi-bot.svg?branch=master">
 </p>
 <hr>
 
@@ -44,8 +45,8 @@ https://git.io/kamergotchi
 
 ## Getting started
 
-This module is both a CLI program and a Node module.
-The most common way to get started is to download the `kamergotchi` package from NPM.
+This package is both a CLI program and a Node module.
+The easiest way to get started is to download the `kamergotchi` package from NPM.
 
 ```shell
 npm install -g kamergotchi
@@ -55,6 +56,48 @@ kamergotchi {myPlayerToken}
 To get started with the bot, you will have to find out your kamergotchi `x-player-token` through a simple MITM attack using a proxy on your phone. I recommend [Burp Suite](https://support.portswigger.net/customer/portal/articles/1841108-configuring-an-ios-device-to-work-with-burp).
 
 When you've obtained a player token, replace `{myPlayerToken}` with your token and run the program. You can check the progress of the bot on your phone in the Kamergotchi app.
+
+## Module
+As stated, this package can also be used as a module in your NodeJS script. This module exposes several functions to utilize the Kamergotchi API yourself.
+
+### status(token)
+```nodejs
+const kamergotchi = require('kamergotchi')
+
+let status = await bot.status(token)
+
+if (status.error) {
+  console.log(status.error.message)
+} else {
+  console.log('current score is ' + status.score)
+}
+```
+
+### spendCareOn(careType, token)
+```nodejs
+const kamergotchi = require('kamergotchi')
+
+let updatedGame = await bot.spendCareOn('food', token)
+
+if (updatedGame.error) {
+  console.log(updatedGame.error.message)
+} else {
+  console.log('new score is ' + status.score)
+}
+```
+
+### claim(token)
+```nodejs
+const kamergotchi = require('kamergotchi')
+
+let updatedGame = await bot.claim(token)
+
+if (updatedGame.error) {
+  console.log(updatedGame.error.message)
+} else {
+  console.log('new score is ' + status.score)
+}
+```
 
 ## Updating
 To update your `kamergotchi-bot` to a newer version, run the following command.
