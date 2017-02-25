@@ -33,7 +33,7 @@ kamerbotchi.setToken = (token) => {
 
 /**
  * Send a request to the Kamergotchi API.
- *
+ * @private
  * @param  {String} uri
  * @param  {String} method
  * @param  {Object} body
@@ -99,6 +99,7 @@ kamerbotchi.request = async (uri, method = 'GET', body = false, token = PLAYER_T
 
 /**
  * Get info of the curent game.
+ * @public
  * @param  {String} [token=PLAYER_TOKEN]
  * @return {Promise<Object>}
  */
@@ -113,6 +114,7 @@ kamerbotchi.status = async (token = PLAYER_TOKEN) => {
 
 /**
  * Calculate what we should spend one 'care' point on.
+ * @private
  * @param  {String}  [token=PLAYER_TOKEN]
  * @return {Promise<Object>}
  */
@@ -146,6 +148,7 @@ kamerbotchi.determineRequiredCare = async (game) => {
 
 /**
  * Spend care points on the given type of care.
+ * @public
  * @param  {String}  careType food|knowledge|attention
  * @return {Promise<Object>}
  */
@@ -171,6 +174,7 @@ kamerbotchi.claim = async () => {
 
 /**
  * Check what we can and cannot do with the current game.
+ * @private
  * @param  {String}  [token=PLAYER_TOKEN]
  * @return {Promise<Integer>}
  */
@@ -214,6 +218,7 @@ kamerbotchi.run = async (token = PLAYER_TOKEN, game = CURRENT_GAME) => {
 
 /**
  * Main bot loop.
+ * @private
  * @param  {String}  [token=PLAYER_TOKEN]
  * @return {Promise}
  */
