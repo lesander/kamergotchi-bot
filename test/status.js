@@ -20,6 +20,9 @@ async function init () {
   if (typeof status !== 'object') {
     console.log(' ✗ Returned status is not an object.'.red)
     process.exit(1)
+  } else if (typeof status.error !== 'undefined') {
+    console.log(' ✗ Returned status contains ' + updatedGame.error.code + ' error.'.red)
+    process.exit(1)
   } else {
     console.log(String('   Gotchi ' + status.gotchi.displayName + ' is doing just fine.').grey)
   }
