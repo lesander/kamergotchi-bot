@@ -62,7 +62,7 @@ As stated, this package can also be used as a module in your NodeJS script. This
 
 ### status(token)
 ```nodejs
-const bot = require('kamergotchi')
+const kamergotchi = require('kamergotchi')
 
 let status = await bot.status(token)
 
@@ -75,7 +75,7 @@ if (status.error) {
 
 ### spendCareOn(careType, token)
 ```nodejs
-const bot = require('kamergotchi')
+const kamergotchi = require('kamergotchi')
 
 let updatedGame = await bot.spendCareOn('food', token)
 
@@ -88,7 +88,7 @@ if (updatedGame.error) {
 
 ### claim(token)
 ```nodejs
-const bot = require('kamergotchi')
+const kamergotchi = require('kamergotchi')
 
 let updatedGame = await bot.claim(token)
 
