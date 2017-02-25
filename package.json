@@ -14,7 +14,9 @@
     "colors": "^1.1.2",
     "latest-version": "^3.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "standard": "^8.6.0"
+  },
   "keywords": [
     "kamergotchi",
     "tamagotchi",
@@ -24,7 +26,7 @@
     "politics"
   ],
   "scripts": {
-    "test": "chmod +x bin/global.js; bin/global.js {token}",
+    "test": "chmod +x test/ci.sh; test/ci.sh",
     "build": ""
   }
 }

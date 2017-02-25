@@ -6,7 +6,8 @@
  */
 
 const request = require('request-promise')
-const colors = require('colors')
+
+require('colors')
 
 const API_ENDPOINT = 'https://api.kamergotchi.nl'
 let PLAYER_TOKEN = ''
@@ -14,6 +15,13 @@ let CURRENT_GAME = false
 let LAST_RESPONSE = false
 
 let kamerbotchi = {}
+
+/**
+ * Output of logs can be useful for CLI apps or
+ * for debugging purposes.
+ * @type {Boolean}
+ */
+kamerbotchi.logging = false
 
 /**
  * Set the global player token
@@ -50,10 +58,14 @@ kamerbotchi.request = async (uri, method = 'GET', body = false) => {
   } catch (error) {
     // Catch any HTTP response errors.
     if (error.statusCode === 401) {
-      console.log('[!] [API] 401 Given player token is not valid.'.red)
-      process.exit()
+      if (kamerbotchi.logging) {
+        console.log('[!] [API] 401 Given player token is not valid.'.red)
+      }
+      return { error: { message: 'Given player token is not valid.', code: 401 } }
     } else if (error.statusCode === 429) {
-      console.log('[!] [API] 429 Request denied, too many requests.')
+      if (kamerbotchi.logging) {
+        console.log('[!] [API] 429 Request denied, too many requests.')
+      }
 
       // The request failed, so we return the last known good response.
       // this will make the bot do the previous action again.
@@ -62,12 +74,16 @@ kamerbotchi.request = async (uri, method = 'GET', body = false) => {
       // the back-off implemented ¯\_(ツ)_/¯
       return LAST_RESPONSE
     } else if (error.statusCode === 504) {
-      console.log('[!] [API] 504 Gateway timeout.'.red)
+      if (kamerbotchi.logging) {
+        console.log('[!] [API] 504 Gateway timeout.'.red)
+      }
       return LAST_RESPONSE
     } else {
+      // We handle all errors above silently because we can recover from those.
+      // It's not safe to continue with an unknown error so we stop right here.
       console.log('[!] [API] '.red + String(error.statusCode).red + ' caught an unrecoverable error.'.red)
       console.log(error)
-      process.exit()
+      process.exit(1)
     }
   }
 
@@ -86,7 +102,9 @@ kamerbotchi.request = async (uri, method = 'GET', body = false) => {
  */
 kamerbotchi.status = async (token = PLAYER_TOKEN) => {
   const status = await kamerbotchi.request('/game')
-  console.log('    requested game status.'.grey)
+  if (kamerbotchi.logging) console.log('    requested game status.'.grey)
+
+  if (status.error) return status
 
   return status.game
 }
@@ -131,7 +149,9 @@ kamerbotchi.determineRequiredCare = async (game) => {
  */
 kamerbotchi.spendCareOn = async (careType) => {
   const updatedGame = await kamerbotchi.request('/game/care', 'POST', { bar: careType })
-  console.log('    Score ' + String(updatedGame.game.score).bold + ' - ' + 'Spent care point on ' + careType.bold)
+  if (kamerbotchi.logging) {
+    console.log('    Score ' + String(updatedGame.game.score).bold + ' - ' + 'Spent care point on ' + careType.bold)
+  }
   return updatedGame
 }
 
@@ -141,7 +161,9 @@ kamerbotchi.spendCareOn = async (careType) => {
  */
 kamerbotchi.claim = async () => {
   const updatedGame = await kamerbotchi.request('/game/claim', 'POST')
-  console.log('    Score ' + String(updatedGame.game.score).bold + ' - ' + 'Clamed bonus points.'.yellow)
+  if (kamerbotchi.logging) {
+    console.log('    Score ' + String(updatedGame.game.score).bold + ' - ' + 'Clamed bonus points.'.yellow)
+  }
   return updatedGame
 }
 
@@ -181,7 +203,9 @@ kamerbotchi.run = async (token = PLAYER_TOKEN, game = CURRENT_GAME) => {
     // Well, all we can do here is wait..
     // Calculate the time in seconds before we try again.
     date.remaining = date.careReset - date.current
-    console.log('[*] Can\'t feed ' + game.gotchi.displayName + ' (' + game.gotchi.party + ') anymore, ' + date.remaining + ' seconds remaining.')
+    if (kamerbotchi.logging) {
+      console.log('[*] Can\'t feed ' + game.gotchi.displayName + ' (' + game.gotchi.party + ') anymore, ' + date.remaining + ' seconds remaining.')
+    }
     return date.remaining
   }
 }
@@ -206,7 +230,9 @@ kamerbotchi.init = async () => {
   // Of course, if there's more requests to send we do not add extra sleep seconds.
   if (sleepSeconds > 0) {
     sleepSeconds += Math.floor(Math.random() * 20) + 2
-    console.log('    hibernating for '.grey + String(sleepSeconds).grey + ' seconds..'.grey)
+    if (kamerbotchi.logging) {
+      console.log('    hibernating for '.grey + String(sleepSeconds).grey + ' seconds..'.grey)
+    }
   } else {
     sleepSeconds += 1
   }
