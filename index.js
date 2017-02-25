@@ -150,10 +150,14 @@ kamerbotchi.determineRequiredCare = async (game) => {
  * Spend care points on the given type of care.
  * @public
  * @param  {String}  careType food|knowledge|attention
+ * @param  {String}  token
  * @return {Promise<Object>}
  */
-kamerbotchi.spendCareOn = async (careType) => {
-  const updatedGame = await kamerbotchi.request('/game/care', 'POST', { bar: careType })
+kamerbotchi.spendCareOn = async (careType, token = PLAYER_TOKEN) => {
+  const updatedGame = await kamerbotchi.request('/game/care', 'POST', { bar: careType }, token)
+
+  if (updatedGame.error) return updatedGame
+
   if (kamerbotchi.logging) {
     console.log('    Score ' + String(updatedGame.game.score).bold + ' - ' + 'Spent care point on ' + careType.bold)
   }
@@ -161,11 +165,16 @@ kamerbotchi.spendCareOn = async (careType) => {
 }
 
 /**
- * Claim the bonus.
+ * Attempt to claim a points bonus.
+ * @public
+ * @param  {String} token
  * @return {Promise<Object>}
  */
-kamerbotchi.claim = async () => {
-  const updatedGame = await kamerbotchi.request('/game/claim', 'POST')
+kamerbotchi.claim = async (token = PLAYER_TOKEN) => {
+  const updatedGame = await kamerbotchi.request('/game/claim', 'POST', null, token)
+
+  if (updatedGame.error) return updatedGame
+
   if (kamerbotchi.logging) {
     console.log('    Score ' + String(updatedGame.game.score).bold + ' - ' + 'Clamed bonus points.'.yellow)
   }
