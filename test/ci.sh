@@ -21,5 +21,10 @@ echo ' → Checking kamerbotchi care functionality..'
 node --harmony-async-await test/care.js
 echo " ✓ Care points can be spent as expected."
 
+# Run claim test script.
+echo ' → Checking kamerbotchi claim functionality..'
+node --harmony-async-await test/claim.js
+echo " ✓ Score bonus can be claimed as expected."
+
 
 echo " ✴ Finished with test, build should pass."
