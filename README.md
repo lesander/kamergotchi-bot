@@ -16,6 +16,7 @@
 <p align="center">
 <img src="https://img.shields.io/npm/v/kamergotchi.svg?mmaxAge=-1">
 <img src="https://img.shields.io/npm/dt/kamergotchi.svg?maxAge=-1">
+<img src="https://travis-ci.org/lesander/kamergotchi-bot.svg?branch=master">
 </p>
 <hr>
 
