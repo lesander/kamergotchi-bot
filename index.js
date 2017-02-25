@@ -74,6 +74,11 @@ kamerbotchi.request = async (uri, method = 'GET', body = false, token = PLAYER_T
       //
       // I know, this is a lazy version of 'exponential backoff', without
       // the back-off implemented ¯\_(ツ)_/¯
+      //
+      // The API will just return the original error.
+      if (!LAST_RESPONSE) {
+        return { error: { message: 'Request denied, too many requests.', code: 429 } }
+      }
       return LAST_RESPONSE
     } else if (error.statusCode === 504) {
       if (kamerbotchi.logging) {

@@ -16,4 +16,10 @@ echo ' → Checking kamerbotchi status functionality..'
 node --harmony-async-await test/status.js
 echo " ✓ Statuses are being handled as expected."
 
+# Run care test script.
+echo ' → Checking kamerbotchi care functionality..'
+node --harmony-async-await test/care.js
+echo " ✓ Care points can be spent as expected."
+
+
 echo " ✴ Finished with test, build should pass."
