@@ -60,6 +60,7 @@ When you've obtained a player token, replace `{myPlayerToken}` with your token a
 ## Module
 As stated, this package can also be used as a module in your NodeJS script. This module exposes several functions to utilize the Kamergotchi API yourself.
 
+### status(token)
 ```nodejs
 const bot = require('kamergotchi')
 
@@ -69,6 +70,32 @@ if (status.error) {
   console.log(status.error.message)
 } else {
   console.log('current score is ' + status.score)
+}
+```
+
+### spendCareOn(careType, token)
+```nodejs
+const bot = require('kamergotchi')
+
+let updatedGame = await bot.spendCareOn('food', token)
+
+if (updatedGame.error) {
+  console.log(updatedGame.error.message)
+} else {
+  console.log('new score is ' + status.score)
+}
+```
+
+### claim(token)
+```nodejs
+const bot = require('kamergotchi')
+
+let updatedGame = await bot.claim(token)
+
+if (updatedGame.error) {
+  console.log(updatedGame.error.message)
+} else {
+  console.log('new score is ' + status.score)
 }
 ```
 
