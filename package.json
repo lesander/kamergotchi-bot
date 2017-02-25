@@ -24,7 +24,7 @@
     "politics"
   ],
   "scripts": {
-    "test": "chmod +x bin/global.js; bin/global.js {token}",
+    "test": "chmod +x test/ci.sh; test/ci.sh",
     "build": ""
   }
 }
