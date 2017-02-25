@@ -44,8 +44,8 @@ https://git.io/kamergotchi
 
 ## Getting started
 
-This module is both a CLI program and a Node module.
-The most common way to get started is to download the `kamergotchi` package from NPM.
+This package is both a CLI program and a Node module.
+The easiest way to get started is to download the `kamergotchi` package from NPM.
 
 ```shell
 npm install -g kamergotchi
