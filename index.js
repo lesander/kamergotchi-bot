@@ -6,7 +6,8 @@
  */
 
 const request = require('request-promise')
-const colors = require('colors')
+
+require('colors')
 
 const API_ENDPOINT = 'https://api.kamergotchi.nl'
 let PLAYER_TOKEN = ''
