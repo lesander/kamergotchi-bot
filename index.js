@@ -66,7 +66,7 @@ kamerbotchi.request = async (uri, method = 'GET', body = false, token = PLAYER_T
       return { error: { message: 'Given player token is not valid.', code: 401 } }
     } else if (error.statusCode === 429) {
       if (kamerbotchi.logging) {
-        console.log('[!] [API] 429 Request denied, too many requests.')
+        console.log('[!] [API] 429 Request denied, too many requests.'.yellow)
       }
 
       // The request failed, so we return the last known good response.
