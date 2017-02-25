@@ -14,8 +14,7 @@ async function init () {
 
   // Test with working token.
   console.log('   Testing status with working player token..'.grey)
-  kamerbotchi.setToken(process.env.WORKING_PLAYER_TOKEN)
-  status = await kamerbotchi.status()
+  status = await kamerbotchi.status(process.env.WORKING_PLAYER_TOKEN)
 
   if (typeof status !== 'object') {
     console.log(' ✗ Returned status is not an object.'.red)
@@ -29,8 +28,7 @@ async function init () {
 
   // Test with bogus token.
   console.log('   Testing status with invalid player token..'.grey)
-  kamerbotchi.setToken(process.env.INVALID_PLAYER_TOKEN)
-  status = await kamerbotchi.status()
+  status = await kamerbotchi.status(process.env.INVALID_PLAYER_TOKEN)
 
   if (typeof status !== 'object' || typeof status.error !== 'object') {
     console.log(' ✗ Returned status does not have error object.'.red)

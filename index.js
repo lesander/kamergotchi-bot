@@ -122,7 +122,7 @@ kamerbotchi.spendCareOn = async (careType, token) => {
   if (kamerbotchi.logging) {
     console.log('    Score ' + String(updatedGame.game.score).bold + ' - ' + 'Spent care point on ' + careType.bold)
   }
-  return updatedGame
+  return updatedGame.game
 }
 
 /**
@@ -139,7 +139,7 @@ kamerbotchi.claim = async (token) => {
   if (kamerbotchi.logging) {
     console.log('    Score ' + String(updatedGame.game.score).bold + ' - ' + 'Clamed bonus points.'.yellow)
   }
-  return updatedGame
+  return updatedGame.game
 }
 
 /**

@@ -14,8 +14,7 @@ async function init () {
 
   // Test with working token.
   console.log('   Trying claim bonus with working token..'.grey)
-  kamerbotchi.setToken(process.env.WORKING_PLAYER_TOKEN)
-  updatedGame = await kamerbotchi.claim()
+  updatedGame = await kamerbotchi.claim(process.env.WORKING_PLAYER_TOKEN)
 
   if (typeof updatedGame !== 'object') {
     console.log(' ✗ Returned updatedGame is not an object.'.red)
@@ -33,8 +32,7 @@ async function init () {
 
   // Test with bogus token.
   console.log('   Trying claim bonus with invalid player token..'.grey)
-  kamerbotchi.setToken(process.env.INVALID_PLAYER_TOKEN)
-  updatedGame = await kamerbotchi.spendCareOn('food')
+  updatedGame = await kamerbotchi.claim(process.env.INVALID_PLAYER_TOKEN)
 
   if (typeof updatedGame !== 'object' || typeof updatedGame.error !== 'object') {
     console.log(' ✗ Returned updatedGame does not have error object.'.red)
