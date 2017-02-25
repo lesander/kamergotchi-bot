@@ -9,27 +9,17 @@ const request = require('request-promise')
 
 require('colors')
 
-const API_ENDPOINT = 'https://api.kamergotchi.nl'
-let PLAYER_TOKEN = ''
-let CURRENT_GAME = false
-let LAST_RESPONSE = false
-
 let kamerbotchi = {}
 
+kamerbotchi.API_ENDPOINT = 'https://api.kamergotchi.nl'
+kamerbotchi.CURRENT_GAME = false
+kamerbotchi.LAST_RESPONSE = false
+
 /**
- * Output of logs can be useful for CLI apps or
- * for debugging purposes.
+ * Output of logs can be useful for CLI apps or for debugging purposes.
  * @type {Boolean}
  */
 kamerbotchi.logging = false
-
-/**
- * Set the global player token
- * @param {String} token
- */
-kamerbotchi.setToken = (token) => {
-  PLAYER_TOKEN = token
-}
 
 /**
  * Send a request to the Kamergotchi API.
@@ -40,12 +30,12 @@ kamerbotchi.setToken = (token) => {
  * @param  {String} token
  * @return {Promise<Object>}
  */
-kamerbotchi.request = async (uri, method = 'GET', body = false, token = PLAYER_TOKEN) => {
+kamerbotchi.request = async (uri, method = 'GET', body = false, token) => {
   let response = false
 
   // Set the request opions we can fill in right away.
   let options = {
-    uri: API_ENDPOINT + uri,
+    uri: kamerbotchi.API_ENDPOINT + uri,
     json: true,
     method: method,
     headers: { 'x-player-token': token }
@@ -76,15 +66,15 @@ kamerbotchi.request = async (uri, method = 'GET', body = false, token = PLAYER_T
       // the back-off implemented ¯\_(ツ)_/¯
       //
       // The API will just return the original error.
-      if (!LAST_RESPONSE) {
+      if (!kamerbotchi.LAST_RESPONSE) {
         return { error: { message: 'Request denied, too many requests.', code: 429 } }
       }
-      return LAST_RESPONSE
+      return kamerbotchi.LAST_RESPONSE
     } else if (error.statusCode === 504) {
       if (kamerbotchi.logging) {
         console.log('[!] [API] 504 Gateway timeout.'.red)
       }
-      return LAST_RESPONSE
+      return kamerbotchi.LAST_RESPONSE
     } else {
       // We handle all errors above silently because we can recover from those.
       // It's not safe to continue with an unknown error so we stop right here.
@@ -96,8 +86,8 @@ kamerbotchi.request = async (uri, method = 'GET', body = false, token = PLAYER_T
 
   // Update the current game global object.
   // This saves us a few status requests to the api.
-  CURRENT_GAME = response.game
-  LAST_RESPONSE = response
+  kamerbotchi.CURRENT_GAME = response.game
+  kamerbotchi.LAST_RESPONSE = response
 
   return response
 }
@@ -105,10 +95,10 @@ kamerbotchi.request = async (uri, method = 'GET', body = false, token = PLAYER_T
 /**
  * Get info of the curent game.
  * @public
- * @param  {String} [token=PLAYER_TOKEN]
+ * @param  {String} token
  * @return {Promise<Object>}
  */
-kamerbotchi.status = async (token = PLAYER_TOKEN) => {
+kamerbotchi.status = async (token) => {
   const status = await kamerbotchi.request('/game', null, null, token)
   if (kamerbotchi.logging) console.log('    requested game status.'.grey)
 
@@ -118,47 +108,13 @@ kamerbotchi.status = async (token = PLAYER_TOKEN) => {
 }
 
 /**
- * Calculate what we should spend one 'care' point on.
- * @private
- * @param  {String}  [token=PLAYER_TOKEN]
- * @return {Promise<Object>}
- */
-kamerbotchi.determineRequiredCare = async (game) => {
-  // If our food level is lower than our attention level,
-  // and our knowledge is lower than our food level, we go for knowledge.
-  //
-  // If our food level is lower than our attention level,
-  // and our knowledge is higher than our food level, we go for food.
-  //
-  // If our food level is higher than our attention level,
-  // and our attention level is lower than our knowledge level, we go for attention.
-  //
-  // If our food level is higher than our attention level,
-  // and our attention level is higher than our knowledge level, we go for knowledge.
-
-  if (game.current.food < game.current.attention) {
-    if (game.current.knowledge < game.current.food) {
-      return await kamerbotchi.spendCareOn('knowledge')
-    } else {
-      return await kamerbotchi.spendCareOn('food')
-    }
-  } else {
-    if (game.current.attention < game.current.knowledge) {
-      return await kamerbotchi.spendCareOn('attention')
-    } else {
-      return await kamerbotchi.spendCareOn('knowledge')
-    }
-  }
-}
-
-/**
  * Spend care points on the given type of care.
  * @public
  * @param  {String}  careType food|knowledge|attention
  * @param  {String}  token
  * @return {Promise<Object>}
  */
-kamerbotchi.spendCareOn = async (careType, token = PLAYER_TOKEN) => {
+kamerbotchi.spendCareOn = async (careType, token) => {
   const updatedGame = await kamerbotchi.request('/game/care', 'POST', { bar: careType }, token)
 
   if (updatedGame.error) return updatedGame
@@ -175,7 +131,7 @@ kamerbotchi.spendCareOn = async (careType, token = PLAYER_TOKEN) => {
  * @param  {String} token
  * @return {Promise<Object>}
  */
-kamerbotchi.claim = async (token = PLAYER_TOKEN) => {
+kamerbotchi.claim = async (token) => {
   const updatedGame = await kamerbotchi.request('/game/claim', 'POST', null, token)
 
   if (updatedGame.error) return updatedGame
@@ -187,85 +143,18 @@ kamerbotchi.claim = async (token = PLAYER_TOKEN) => {
 }
 
 /**
- * Check what we can and cannot do with the current game.
- * @private
- * @param  {String}  [token=PLAYER_TOKEN]
- * @return {Promise<Integer>}
+ * Legacy functions.
  */
-kamerbotchi.run = async (token = PLAYER_TOKEN, game = CURRENT_GAME) => {
-  // Get game status if none has been requested yet.
-  if (typeof game !== 'object') {
-    game = await kamerbotchi.status()
-  }
-
-  // Format the given dates to seconds.
-  let date = {
-    current: Math.round(new Date().getTime() / 1000),
-    careReset: Math.round(new Date(game.careReset).getTime() / 1000),
-    claimReset: Math.round(new Date(game.claimReset).getTime() / 1000),
-    remaining: 0
-  }
-
-  // Is a claim available?
-  // We want the highest available claim,
-  // so we wait until there's no care points left to spend.
-  if (date.current > date.claimReset && game.careLeft === 0) {
-    kamerbotchi.claim(token, game)
-  }
-
-  // Any 'care' points available to spend?
-  // For some reason, careLeft stays 0, even after careReset has passed.
-  if (game.careLeft > 0 || date.current > date.careReset) {
-    // Let our algorithm determine what to spend a care point on.
-    await kamerbotchi.determineRequiredCare(game)
-    return 0
-  } else {
-    // Well, all we can do here is wait..
-    // Calculate the time in seconds before we try again.
-    date.remaining = date.careReset - date.current
-    if (kamerbotchi.logging) {
-      console.log('[*] Can\'t feed ' + game.gotchi.displayName + ' (' + game.gotchi.party + ') anymore, ' + date.remaining + ' seconds remaining.')
-    }
-    return date.remaining
-  }
-}
 
 /**
- * Main bot loop.
- * @private
- * @param  {String}  [token=PLAYER_TOKEN]
- * @return {Promise}
+ * Set the global player token
+ * @deprecated since version 2.0.0
+ * @param {String} token
  */
-kamerbotchi.init = async () => {
-  // Make sure a token was passed on somehow.
-  if (!PLAYER_TOKEN) {
-    console.log('[!] No player token was set, please provide one before continuing.'.red)
-    return false
-  }
-
-  // Run the bot and await the time we should wait before running again.
-  let sleepSeconds = await kamerbotchi.run(PLAYER_TOKEN, CURRENT_GAME)
-
-  // To make the bot stand out less, we add a few extra random
-  // waiting seconds before making a new request.
-  // Of course, if there's more requests to send we do not add extra sleep seconds.
-  if (sleepSeconds > 0) {
-    sleepSeconds += Math.floor(Math.random() * 20) + 2
-    if (kamerbotchi.logging) {
-      console.log('    hibernating for '.grey + String(sleepSeconds).grey + ' seconds..'.grey)
-    }
-  } else {
-    sleepSeconds += 1
-  }
-
-  // setTimeout takes milliseconds as a parameter, so we better convert
-  // those seconds. :)
-  const sleepMilliseconds = sleepSeconds * 1000
-
-  // Wait for x milliseconds before running again.
-  setTimeout(() => {
-    kamerbotchi.init()
-  }, sleepMilliseconds)
+kamerbotchi.setToken = (token) => {
+  console.log('kamergotchi.setToken has been deprecated since version 2.0.0')
+  console.log('Use the `token` parameter for applicable functions instead.')
+  return false
 }
 
 /**
