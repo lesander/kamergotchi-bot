@@ -55,6 +55,10 @@ kamergotchi {myPlayerToken}
 
 To get started with the bot, you will have to find out your kamergotchi `x-player-token` through a simple MITM attack using a proxy on your phone. I recommend [Burp Suite](https://support.portswigger.net/customer/portal/articles/1841108-configuring-an-ios-device-to-work-with-burp).
 
+You can also register a new kamergotchi with the `kamergotchi.register()` function. Simply run the register test script or [call the function](#registernickname) manually in your script.
+```shell
+node --harmony-async-await test/register.js
+```
 When you've obtained a player token, replace `{myPlayerToken}` with your token and run the program. You can check the progress of the bot on your phone in the Kamergotchi app.
 
 ## Module
