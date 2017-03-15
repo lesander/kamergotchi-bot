@@ -1,0 +1,11 @@
+POST /players/register HTTP/1.1
+Host: api.kamergotchi.nl
+Content-Type: application/json;charset=utf-8
+Connection: close
+x-player-token: xxx
+Accept: application/json, text/plain, */*
+Accept-Language: en-us
+Content-Length: 135
+User-Agent: kamergotchi/86 CFNetwork/811.4.18 Darwin/16.5.0
+
+{"registration":{"nickname":"mynickname","age":18,"gender":"male","supportCode":null,"token":"xxx"}}

@@ -55,16 +55,20 @@ kamergotchi {myPlayerToken}
 
 To get started with the bot, you will have to find out your kamergotchi `x-player-token` through a simple MITM attack using a proxy on your phone. I recommend [Burp Suite](https://support.portswigger.net/customer/portal/articles/1841108-configuring-an-ios-device-to-work-with-burp).
 
+You can also register a new kamergotchi with the `kamergotchi.register()` function. Simply run the register test script or [call the function](#registernickname) manually in your script.
+```shell
+node --harmony-async-await test/register.js
+```
 When you've obtained a player token, replace `{myPlayerToken}` with your token and run the program. You can check the progress of the bot on your phone in the Kamergotchi app.
 
 ## Module
 As stated, this package can also be used as a module in your NodeJS script. This module exposes several functions to utilize the Kamergotchi API yourself.
 
 ### status(token)
-```nodejs
+```node
 const kamergotchi = require('kamergotchi')
 
-let status = await bot.status(token)
+let status = await kamergotchi.status(token)
 
 if (status.error) {
   console.log(status.error.message)
@@ -74,10 +78,10 @@ if (status.error) {
 ```
 
 ### spendCareOn(careType, token)
-```nodejs
+```node
 const kamergotchi = require('kamergotchi')
 
-let updatedGame = await bot.spendCareOn('food', token)
+let updatedGame = await kamergotchi.spendCareOn('food', token)
 
 if (updatedGame.error) {
   console.log(updatedGame.error.message)
@@ -87,15 +91,29 @@ if (updatedGame.error) {
 ```
 
 ### claim(token)
-```nodejs
+```node
 const kamergotchi = require('kamergotchi')
 
-let updatedGame = await bot.claim(token)
+let updatedGame = await kamergotchi.claim(token)
 
 if (updatedGame.error) {
   console.log(updatedGame.error.message)
 } else {
   console.log('new score is ' + status.score)
+}
+```
+
+### register(nickname)
+```node
+const kamergotchi = require('kamergotchi')
+
+let response = await.register('myawesomebot')
+let playerObject = response.player
+if (response.error) {
+  console.log(response.error.message)
+} else {
+  console.log('new player token is ' + playerObject.token)
+  console.log('and our gotchi is ' + playerObject.currentGame.gotchi.displayName)
 }
 ```
 
