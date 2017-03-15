@@ -26,5 +26,9 @@ echo ' → Checking kamerbotchi claim functionality..'
 node --harmony-async-await test/claim.js
 echo " ✓ Score bonus can be claimed as expected."
 
+# Run register test script.
+echo ' → Checking kamerbotchi register functionality..'
+node --harmony-async-await test/register.js
+echo " ✓ Registering works as expected."
 
 echo " ✴ Finished with test, build should pass."
