@@ -1,0 +1,66 @@
+HTTP/1.1 200 OK
+Server: nginx/1.6.2
+Date: Wed, 15 Mar 2017 08:52:44 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 1026
+Connection: close
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Cache-Control: no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0
+ETag: W/"xxxx"
+
+{
+  "player":{
+    "currentGame":{
+      "claimReset":"2017-03-15T10:32:22.814Z",
+      "careLeft":0,
+      "endDate":null,
+      "startDate":"2017-02-19T23:29:49.087Z",
+      "gotchi":{
+        "partyText":"Artikel 1",
+        "party":"Artikel 1",
+        "displayName":"Sylvana",
+        "name":"sylvana",
+        "public":true,
+        "id":"xx"
+      },
+      "batchNumber":6,
+      "player":"xxx",
+      "careReset":"2017-03-15T08:54:27.097Z",
+      "quotes":[],
+      "dayScore":10338,
+      "score":999999,
+      "current":{
+        "food":94,
+        "attention":94,
+        "knowledge":94
+      },
+      "device":{
+        "platform":"ios",
+        "token":"xxx"
+      },
+      "daysAlive":24,
+      "health":94,
+      "active":true,
+      "ended":false,
+      "started":true,
+      "claimLimitSeconds":7200,
+      "careLimitSeconds":420,
+      "id":"xx"
+    },
+    "gender":"male",
+    "age":18,
+    "blocked":false,
+    "code":"xxxx",
+    "nickname":"mynickname",
+    "token":"xxx",
+    "flagged":false,
+    "safe":true,
+    "endedGames":[],
+    "device":{
+      "platform":"ios",
+      "token":"xxx"
+    },
+    "id":"xx"
+  }
+}
