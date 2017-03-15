@@ -37,8 +37,12 @@ kamerbotchi.request = async (uri, method = 'GET', body = false, token) => {
   let options = {
     uri: kamerbotchi.API_ENDPOINT + uri,
     json: true,
-    method: method,
-    headers: { 'x-player-token': token }
+    method: method
+  }
+
+  // If there's a token set, pass it on to the headers.
+  if (token) {
+    options.headers = { 'x-player-token': token }
   }
 
   // If there's a body given, set it in our options.
@@ -86,8 +90,10 @@ kamerbotchi.request = async (uri, method = 'GET', body = false, token) => {
 
   // Update the current game global object.
   // This saves us a few status requests to the api.
-  kamerbotchi.CURRENT_GAME = response.game
-  kamerbotchi.LAST_RESPONSE = response
+  if (response.game) {
+    kamerbotchi.CURRENT_GAME = response.game
+    kamerbotchi.LAST_RESPONSE = response
+  }
 
   return response
 }
@@ -140,6 +146,36 @@ kamerbotchi.claim = async (token) => {
     console.log('    Score ' + String(updatedGame.game.score).bold + ' - ' + 'Clamed bonus points.'.yellow)
   }
   return updatedGame.game
+}
+
+/**
+ * Register a new kamergotchi or update an existing account.
+ * @param  {String}  username
+ * @param  {Integer}  age
+ * @param  {String}  gender        male|female|other
+ * @param  {String} [token=false]
+ * @return {Promise}
+ */
+kamerbotchi.register = async (username = 'kamerbotchi', age = 18, gender = 'male', token = false) => {
+  const body = {
+    registration: {
+      nickname: username,
+      age: age,
+      gender: gender,
+      supportCode: null
+    }
+  }
+  if (token) {
+    body.registration.token = token
+  } else {
+    body.registration.token = 'bot:' + Math.floor(Math.random() * 10e20)
+  }
+  const playerObject = await kamerbotchi.request('/players/register', 'POST', body, false)
+  if (playerObject.player) {
+    if (kamerbotchi.logging) console.log(String('[!] Registered or updated player ' + playerObject.player.nickname + '!').green)
+    return playerObject
+  }
+  return false
 }
 
 /**
