@@ -1,0 +1,52 @@
+HTTP/1.1 200 OK
+Server: nginx/1.6.2
+Date: Wed, 15 Mar 2017 13:08:23 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 703
+Connection: close
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Cache-Control: no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0
+ETag: W/"x"
+
+{
+  "game": {
+    "claimReset": "2017-03-15T14:43:59.262Z",
+    "careLeft": 0,
+    "endDate": null,
+    "startDate": "2017-02-19T23:29:49.087Z",
+    "gotchi": {
+      "partyText": "Artikel 1",
+      "party": "Artikel 1",
+      "displayName": "Sylvana",
+      "name": "sylvana",
+      "public": true,
+      "id": "xx"
+    },
+    "batchNumber": 6,
+    "player": "xx",
+    "careReset": "2017-03-15T13:13:02.684Z",
+    "quotes": [
+
+    ],
+    "dayScore": 10968,
+    "score": 394090,
+    "current": {
+      "food": 100,
+      "attention": 100,
+      "knowledge": 100
+    },
+    "device": {
+      "platform": "ios",
+      "token": "xxx"
+    },
+    "daysAlive": 24,
+    "health": 100,
+    "active": true,
+    "ended": false,
+    "started": true,
+    "claimLimitSeconds": 7200,
+    "careLimitSeconds": 420,
+    "id": "xx"
+  }
+}

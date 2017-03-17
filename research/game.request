@@ -1,0 +1,7 @@
+GET /game HTTP/1.1
+Host: api.kamergotchi.nl
+x-player-token: ios:xxx
+Accept: application/json, text/plain, */*
+User-Agent: kamergotchi/86 CFNetwork/811.4.18 Darwin/16.5.0
+Accept-Language: en-us
+Connection: close
