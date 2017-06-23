@@ -107,11 +107,11 @@ if (updatedGame.error) {
 ```node
 const kamergotchi = require('kamergotchi')
 
-let response = await register('myawesomebot')
-let playerObject = response.player
+let response = await kamergotchi.register('myawesomebot')
 if (response.error) {
   console.log(response.error.message)
 } else {
+  let playerObject = response.player
   console.log('new player token is ' + playerObject.token)
   console.log('and our gotchi is ' + playerObject.currentGame.gotchi.displayName)
 }
