@@ -107,7 +107,7 @@ if (updatedGame.error) {
 ```node
 const kamergotchi = require('kamergotchi')
 
-let response = await.register('myawesomebot')
+let response = await register('myawesomebot')
 let playerObject = response.player
 if (response.error) {
   console.log(response.error.message)
