@@ -1,6 +1,5 @@
 /**
  * kamergotchi-bot v1.0.0
- * By Sander Laarhoven
  * Licensed under the MIT License
  * https://git.io/kamergotchi
  */
@@ -22,7 +21,6 @@ const startBot = async () => {
 
   // Say hi!
   console.log('KamerBOTchi'.yellow.bold + ' v'.yellow + cv.yellow)
-  console.log('Developed with <3 by Sander Laarhoven'.grey)
   console.log('https://git.io/kamergotchi'.grey.underline)
   console.log('')
 
