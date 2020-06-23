@@ -22,7 +22,6 @@
 
 ```
 KamerBOTchi v1.4.1
-Developed with <3 by Sander Laarhoven
 https://git.io/kamergotchi
 
 [*] Player token is set to xxx
@@ -127,7 +126,7 @@ npm update -g kamergotchi
 If you'd like to contribute to this project, or file a bug or feature request, please head over to [the issue tracker](https://github.com/lesander/kamergotchi-bot/issues) or [open a pull request](https://github.com/lesander/kamergotchi-bot/pulls).
 
 ## License
-Copyright (c) 2017 Sander Laarhoven All Rights Reserved.
+Copyright (c) 2017 @lesander All Rights Reserved.
 
 This software is open-sourced under the MIT License ([see the LICENSE file for the full license](https://github.com/lesander/kamergotchi-bot/blob/master/LICENSE)). So within some limits, you can do with the code whatever you want. However, if you like and/or want to re-use it, I'd really appreciate a reference to this project page.
 
