@@ -1,6 +1,6 @@
 {
   "name": "kamergotchi",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Automatically take care of your favorite dutch politician!",
   "license": "MIT",
   "repository": "https://github.com/lesander/kamergotchi-bot",
@@ -9,13 +9,13 @@
     "kamergotchi": "bin/global.js"
   },
   "dependencies": {
-    "request": "^2.79.0",
-    "request-promise": "^4.1.1",
     "colors": "^1.1.2",
-    "latest-version": "^3.0.0"
+    "latest-version": "^7.0.0",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1"
   },
   "devDependencies": {
-    "standard": "^8.6.0"
+    "standard": "^17.0.0"
   },
   "keywords": [
     "kamergotchi",
